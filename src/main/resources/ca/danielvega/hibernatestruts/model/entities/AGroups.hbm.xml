@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.AGroups" table="a_groups" schema="gs86" optimistic-lock="version">
+        <comment>Groups of the system.</comment>
+        <id name="groupName" type="string">
+            <column name="group_name" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="description" type="string">
+            <column name="description" length="50" not-null="true">
+                <comment>Describes the group</comment>
+            </column>
+        </property>
+        <set name="AUserses" table="a_group_user" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="group_name" length="50" not-null="true">
+                    <comment>Names the group</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.AUsers">
+                <column name="username" length="50" not-null="true">
+                    <comment>Id or Username of the user.</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

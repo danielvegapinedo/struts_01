@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.PJuridicalPerson" table="p_juridical_person" schema="gs86" optimistic-lock="version">
+        <comment>In jurisprudence, a juridical person is not a real human which may be a private (i.e., business entity or non-governmental organization) or public (i.e.,
+        government) organization.</comment>
+        <id name="juridicalPersonId" type="long">
+            <column name="juridical_person_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="GCountries" class="ca.danielvega.hibernatestruts.model.entities.GCountries" fetch="select">
+            <column name="iso3166a2" length="2" not-null="true">
+                <comment>ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1, part of the ISO 3166 standard published by the International Organization for
+                Standardization (ISO), to represent countries, dependent territories, and special areas of geographical interest.</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="GLocations" class="ca.danielvega.hibernatestruts.model.entities.GLocations" fetch="select">
+            <column name="location_id" not-null="true">
+                <comment>Id of the location.</comment>
+            </column>
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true">
+                <comment>Name of the person.</comment>
+            </column>
+        </property>
+        <property name="registrationDate" type="date">
+            <column name="registration_date" length="13" not-null="true">
+                <comment>Registration date.</comment>
+            </column>
+        </property>
+        <set name="PEmailses" table="p_juridical_person_has_emails" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="juridical_person_id" not-null="true">
+                    <comment>Id of the juridial person.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PEmails">
+                <column name="email_address" length="50" not-null="true">
+                    <comment>Email address.</comment>
+                </column>
+            </many-to-many>
+        </set>
+        <set name="PPhoneses" table="p_juridical_person_has_phones" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="juridical_person_id" not-null="true">
+                    <comment>Id of the juridical person.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PPhones">
+                <column name="phone_id" not-null="true">
+                    <comment>Phone id.</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

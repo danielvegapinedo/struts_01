@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.custom.i18n.resources" value="i18n.global.global,i18n.access.access"/>
+    
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.multipart.saveDir" value="C:\borra"/>
+    <constant name="struts.action.extension" value=","/>   
+
+
+    <package name="default" namespace="/" extends="struts-default">
+        <action name="welcome">
+            <result>views/welcome.jsp</result>
+        </action>
+    </package>
+
+    
+    <package name="email" namespace="/email" extends="struts-default">
+       
+        <action name="listEmailTypes" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesController" method="listEmailTypes" >
+            <result name="success" >views/EmailTypesDetailedList.jsp</result>
+        </action>
+                
+        <action name="createEmailTypes" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesController" method="createEmailTypes">
+            <result name="success" >views/EmailTypesDetailedList.jsp</result>
+        </action>
+        <action name="deleteEmailTypes" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesController" method="deleteEmailTypes">
+            <result name="success" >views/EmailTypesDetailedList.jsp</result>
+        </action>
+
+        <action name="updateEmailTypes" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesController" method="updateEmailTypes">
+            <result name="success" >views/EmailTypesDetailedList.jsp</result>
+        </action>      
+
+
+                
+    </package>
+  
+    <package name="email_classic" namespace="/email_classic" extends="struts-default">
+
+        <action name="email_types_list" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="listEmailTypes">
+            <result name="success" >views/email_types_list.jsp</result>
+        </action>
+        
+        <action name="email_types_create_start" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="createEmailTypesStart">
+            <result name="success" >views/email_types_create.jsp</result>
+        </action>
+ 
+        <action name="email_types_create" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="createEmailTypes">
+            <result name="success" >views/email_types_read.jsp</result>
+        </action>
+        
+        <action name="email_types_update_start" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="updateEmailTypesStart">
+            <result name="success" >views/email_types_update.jsp</result>
+        </action>
+ 
+        <action name="email_types_update" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="updateEmailTypes">
+            <result name="success" >views/email_types_read.jsp</result>
+        </action>
+         
+        <action name="email_types_read" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="readEmailTypes">
+            <result name="success" >views/email_types_read.jsp</result>
+        </action>
+                 
+        <action name="email_types_delete" class="ca.danielvega.hibernatestruts.email.controller.EmailTypesClassicController" method="deleteEmailTypes">
+            <result name="success" >views/email_types_list.jsp</result>
+        </action>                 
+    </package>
+
+</struts>

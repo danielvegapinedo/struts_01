@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.PNaturalPerson" table="p_natural_person" schema="gs86" optimistic-lock="version">
+        <comment>In jurisprudence, a natural person is a real human being, as opposed to a legal person, which may be a private (i.e., business entity or non-governmental
+        organization) or public (i.e., government) organization.</comment>
+        <id name="naturalPersonId" type="long">
+            <column name="natural_person_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="GLocations" class="ca.danielvega.hibernatestruts.model.entities.GLocations" fetch="select">
+            <column name="location_id" not-null="true">
+                <comment>Id of the location.</comment>
+            </column>
+        </many-to-one>
+        <property name="firstName" type="string">
+            <column name="first_name" length="50" not-null="true">
+                <comment>First name of the person.</comment>
+            </column>
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="50" not-null="true">
+                <comment>Last name of the person.</comment>
+            </column>
+        </property>
+        <property name="middleName" type="string">
+            <column name="middle_name" length="50">
+                <comment>Middle name of the person.</comment>
+            </column>
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" length="13">
+                <comment>Birthday of the person.</comment>
+            </column>
+        </property>
+        <property name="gender" type="java.lang.Boolean">
+            <column name="gender">
+                <comment>Gender</comment>
+            </column>
+        </property>
+        <set name="PPhoneses" table="p_natural_person_has_phones" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="natural_person_id" not-null="true">
+                    <comment>Id of the natural person.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PPhones">
+                <column name="phone_id" not-null="true">
+                    <comment>Phone id.</comment>
+                </column>
+            </many-to-many>
+        </set>
+        <set name="PEmailses" table="p_natural_person_has_emails" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="natural_person_id" not-null="true">
+                    <comment>Id of the natural person.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PEmails">
+                <column name="email_address" length="50" not-null="true">
+                    <comment>Email address.</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

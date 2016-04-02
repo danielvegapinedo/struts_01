@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="debug" monitorInterval="10" stric="true" verbose="true" name="for dev team">
+    
+    <Properties>
+        <Property name="pattern1">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Property>
+    </Properties>
+  
+    <appenders>
+        <file name="log_web" fileName="C:\borra\hibernate-struts.log" append="false">
+            <patternlayout pattern="${pattern1}"/>
+        </file>  
+
+        <console name="console" target="SYSTEM_OUT">
+            <patternlayout pattern="${pattern1}"/>
+        </console>
+    </appenders>
+  
+    <loggers>
+       
+        <logger name="ca.danielvega" level="debug" additivity="true">
+            <appenderref ref="log_web"/>
+        </logger>
+        <!--
+        <logger name="ca.danielvega.gs86.common.web.controller" level="TRACE" additivity="false">
+            <appenderref ref="log_web"/>
+        </logger>
+
+        <logger name="ca.danielvega.gs86.web.exception" level="TRACE" additivity="false">
+            <appenderref ref="log_web"/>
+        </logger>
+
+        
+        <logger name="jsLogger" level="fatal" additivity="false">
+            <appenderref ref="log_js"/>
+        </logger>    
+        -->
+
+        <root level="trace">
+            <appenderref ref="console"/>
+
+        </root>
+        
+    </loggers>
+</configuration>

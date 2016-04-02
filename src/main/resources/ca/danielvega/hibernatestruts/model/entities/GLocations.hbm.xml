@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.GLocations" table="g_locations" schema="gs86" optimistic-lock="version">
+        <comment>Allows assign world location to any object.</comment>
+        <id name="locationId" type="long">
+            <column name="location_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="GZones" class="ca.danielvega.hibernatestruts.model.entities.GZones" fetch="select">
+            <column name="zone_id">
+                <comment>Can be a city, state, block, area, etc. It depends of the bussines.</comment>
+            </column>
+        </many-to-one>
+        <property name="streetNumber" type="string">
+            <column name="street_number" length="30">
+                <comment>This number has relation with Street Name. It can be a number or a mix of lettre and number.</comment>
+            </column>
+        </property>
+        <property name="streetName" type="string">
+            <column name="street_name" length="50">
+                <comment>Name of the street. It has relation with the column street_number.</comment>
+            </column>
+        </property>
+        <property name="appartmentNumber" type="string">
+            <column name="appartment_number" length="30">
+                <comment>Name of the street. It has relation with the column street_number, street_name.</comment>
+            </column>
+        </property>
+        <property name="otherInformation" type="string">
+            <column name="other_information" length="250">
+                <comment>Number of the appartment.</comment>
+            </column>
+        </property>
+        <property name="zip" type="string">
+            <column name="zip" length="32">
+                <comment>Code Zip.</comment>
+            </column>
+        </property>
+        <property name="latitude" type="java.lang.Float">
+            <column name="latitude" precision="8" scale="8">
+                <comment>Latitude</comment>
+            </column>
+        </property>
+        <property name="longitude" type="java.lang.Float">
+            <column name="longitude" precision="8" scale="8">
+                <comment>Longitude</comment>
+            </column>
+        </property>
+        <set name="PNaturalPersons" table="p_natural_person" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true">
+                    <comment>Id of the location.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.PNaturalPerson" />
+        </set>
+        <set name="PJuridicalPersons" table="p_juridical_person" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true">
+                    <comment>Id of the location.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.PJuridicalPerson" />
+        </set>
+    </class>
+</hibernate-mapping>

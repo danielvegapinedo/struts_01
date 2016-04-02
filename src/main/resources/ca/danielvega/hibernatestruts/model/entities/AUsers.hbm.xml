@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.AUsers" table="a_users" schema="gs86" optimistic-lock="version">
+        <comment>Users of the system.</comment>
+        <id name="username" type="string">
+            <column name="username" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="80" not-null="true">
+                <comment>Password of the user.</comment>
+            </column>
+        </property>
+        <property name="accountEnabled" type="boolean">
+            <column name="account_enabled" not-null="true">
+                <comment>Enables or disables an account.</comment>
+            </column>
+        </property>
+        <property name="accountExpired" type="boolean">
+            <column name="account_expired" not-null="true">
+                <comment>Expires an account.</comment>
+            </column>
+        </property>
+        <property name="accountLocked" type="boolean">
+            <column name="account_locked" not-null="true">
+                <comment>Locks or unlocks an account.</comment>
+            </column>
+        </property>
+        <property name="credentialsExpired" type="boolean">
+            <column name="credentials_expired" not-null="true">
+                <comment>Expired credential of an account.</comment>
+            </column>
+        </property>
+        <property name="salt" type="string">
+            <column name="salt" length="25" not-null="true">
+                <comment>saltsaltsaltsalt.</comment>
+            </column>
+        </property>
+        <property name="nonNaturalPerson" type="boolean">
+            <column name="non_natural_person" not-null="true">
+                <comment>Sets if a account is of a Natural person or a company.</comment>
+            </column>
+        </property>
+        <set name="AGroupses" table="a_group_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="username" length="50" not-null="true">
+                    <comment>Id or Username of the user.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.AGroups">
+                <column name="group_name" length="50" not-null="true">
+                    <comment>Names the group</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.GCountries" table="g_countries" schema="gs86" optimistic-lock="version">
+        <comment>Allows to store specific data for the countries.</comment>
+        <id name="iso3166a2" type="string">
+            <column name="iso3166a2" length="2" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="GZones" class="ca.danielvega.hibernatestruts.model.entities.GZones" fetch="select">
+            <column name="zone_id">
+                <comment>Geospatial localisation of a country.</comment>
+            </column>
+        </many-to-one>
+        <property name="phoneCode" type="string">
+            <column name="phone_code" length="5">
+                <comment>are telephone dialing prefixes for the member countries of the International Telecommunication Union (ITU). They are defined by the ITU-T in standards
+                E.123 and E.164. The prefixes enable international direct dialing (IDD), and are also referred to as international subscriber dialing (ISD) codes.</comment>
+            </column>
+        </property>
+        <set name="PPhoneses" table="p_phones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iso3166a2" length="2" not-null="true">
+                    <comment>Country Id (iso3166a2)</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.PPhones" />
+        </set>
+        <set name="PJuridicalPersons" table="p_juridical_person" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iso3166a2" length="2" not-null="true">
+                    <comment>ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1, part of the ISO 3166 standard published by the International Organization
+                    for Standardization (ISO), to represent countries, dependent territories, and special areas of geographical interest.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.PJuridicalPerson" />
+        </set>
+    </class>
+</hibernate-mapping>

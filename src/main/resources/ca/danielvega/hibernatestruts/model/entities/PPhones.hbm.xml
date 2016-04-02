@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.PPhones" table="p_phones" schema="gs86" optimistic-lock="version">
+        <comment>Phones used by natural person or juridical person.</comment>
+        <id name="phoneId" type="long">
+            <column name="phone_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="GCountries" class="ca.danielvega.hibernatestruts.model.entities.GCountries" fetch="select">
+            <column name="iso3166a2" length="2" not-null="true">
+                <comment>Country Id (iso3166a2)</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="PPhoneTypes" class="ca.danielvega.hibernatestruts.model.entities.PPhoneTypes" fetch="select">
+            <column name="phone_type" length="50" not-null="true">
+                <comment>Names the type.</comment>
+            </column>
+        </many-to-one>
+        <property name="phoneNumber" type="long">
+            <column name="phone_number" not-null="true">
+                <comment>Complete phone number.</comment>
+            </column>
+        </property>
+        <property name="isOperational" type="boolean">
+            <column name="is_operational" not-null="true">
+                <comment>This means it is operational and the system can use the phone number to comunicat with the person.</comment>
+            </column>
+        </property>
+        <set name="PNaturalPersons" table="p_natural_person_has_phones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="phone_id" not-null="true">
+                    <comment>Phone id.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PNaturalPerson">
+                <column name="natural_person_id" not-null="true">
+                    <comment>Id of the natural person.</comment>
+                </column>
+            </many-to-many>
+        </set>
+        <set name="PJuridicalPersons" table="p_juridical_person_has_phones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="phone_id" not-null="true">
+                    <comment>Phone id.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PJuridicalPerson">
+                <column name="juridical_person_id" not-null="true">
+                    <comment>Id of the juridical person.</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

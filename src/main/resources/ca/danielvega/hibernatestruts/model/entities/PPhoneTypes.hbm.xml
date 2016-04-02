@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.PPhoneTypes" table="p_phone_types" schema="gs86" optimistic-lock="version">
+        <comment>Defines types of phones.</comment>
+        <id name="phoneType" type="string">
+            <column name="phone_type" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="description" type="string">
+            <column name="description" length="250" not-null="true">
+                <comment>Describes the type.</comment>
+            </column>
+        </property>
+        <set name="PPhoneses" table="p_phones" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="phone_type" length="50" not-null="true">
+                    <comment>Names the type.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.PPhones" />
+        </set>
+    </class>
+</hibernate-mapping>

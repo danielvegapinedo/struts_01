@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.PEmails" table="p_emails" schema="gs86" optimistic-lock="version">
+        <comment>Emails used by natural person or juridical person.</comment>
+        <id name="emailAddress" type="string">
+            <column name="email_address" length="50" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="PEmailTypes" class="ca.danielvega.hibernatestruts.model.entities.PEmailTypes" fetch="select">
+            <column name="email_type" length="50" not-null="true">
+                <comment>Names the emails type.</comment>
+            </column>
+        </many-to-one>
+        <property name="isOperational" type="boolean">
+            <column name="is_operational" not-null="true">
+                <comment>This means it is operational and the system can use the adress to comunicat with the person.</comment>
+            </column>
+        </property>
+        <set name="PJuridicalPersons" table="p_juridical_person_has_emails" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="email_address" length="50" not-null="true">
+                    <comment>Email address.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PJuridicalPerson">
+                <column name="juridical_person_id" not-null="true">
+                    <comment>Id of the juridial person.</comment>
+                </column>
+            </many-to-many>
+        </set>
+        <set name="PNaturalPersons" table="p_natural_person_has_emails" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="email_address" length="50" not-null="true">
+                    <comment>Email address.</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="ca.danielvega.hibernatestruts.model.entities.PNaturalPerson">
+                <column name="natural_person_id" not-null="true">
+                    <comment>Id of the natural person.</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

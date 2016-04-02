@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Mar-2016 2:41:02 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ca.danielvega.hibernatestruts.model.entities.GZones" table="g_zones" schema="gs86" optimistic-lock="version">
+        <comment>Geospatial localisation of an object.</comment>
+        <id name="zoneId" type="long">
+            <column name="zone_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="poligone" type="string">
+            <column name="poligone" length="250">
+                <comment>TODO- Change to true value. Area of the zone.</comment>
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="50">
+                <comment>Name of the zone</comment>
+            </column>
+        </property>
+        <property name="level" type="java.lang.Short">
+            <column name="level">
+                <comment>Useful when you want to find the children of a zone in a specific level. Level 0 means top, no parent</comment>
+            </column>
+        </property>
+        <property name="parentZone" type="java.lang.Long">
+            <column name="parent_zone">
+                <comment>The area may belong another area and it only is the closest.</comment>
+            </column>
+        </property>
+        <set name="GLocationses" table="g_locations" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="zone_id">
+                    <comment>Can be a city, state, block, area, etc. It depends of the bussines.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.GLocations" />
+        </set>
+        <set name="GCountrieses" table="g_countries" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="zone_id">
+                    <comment>Geospatial localisation of a country.</comment>
+                </column>
+            </key>
+            <one-to-many class="ca.danielvega.hibernatestruts.model.entities.GCountries" />
+        </set>
+    </class>
+</hibernate-mapping>
